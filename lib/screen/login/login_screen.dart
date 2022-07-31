@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   late LoginProvider provider;
+  bool isHide = true;
 
   @override
   void initState() {
@@ -58,10 +59,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextFormField(
                   controller: provider.passwordController,
-                  decoration: const InputDecoration(
-                    labelText: "Password",
-                    border: OutlineInputBorder(),
-                  ),
+                  obscureText: isHide,
+                  decoration: InputDecoration(
+                      labelText: "Password",
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isHide = !isHide;
+                            });
+                          },
+                          icon: isHide == true ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off))),
                 ),
                 const SizedBox(
                   height: 8,

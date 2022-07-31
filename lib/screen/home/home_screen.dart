@@ -5,6 +5,7 @@ import 'package:bkn_sertifikasi/provider/home_provider.dart';
 import 'package:bkn_sertifikasi/screen/detail/cashflowdetail_screen.dart';
 import 'package:bkn_sertifikasi/screen/expenses/expenses_screen.dart';
 import 'package:bkn_sertifikasi/screen/income/income_screen.dart';
+import 'package:bkn_sertifikasi/screen/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       s ??= "0";
       return NumberFormat.decimalPattern('id').format(int.parse(s));
     }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("MyCashBook"),
@@ -67,31 +69,63 @@ class _HomeScreenState extends State<HomeScreen> {
                     provider.getIncomeList().then((value) {
                       if (provider.state == ResultState.HasData) {
                         incomeSpots = provider.incomeList!.map((e) {
-                          return CashflowData(date: e!.date, nominal: e.nominal);
+                          return CashflowData(
+                              date: DateTime(
+                                DateTime.fromMillisecondsSinceEpoch(e!.timestamp).year,
+                                DateTime.fromMillisecondsSinceEpoch(e.timestamp).month,
+                                DateTime.fromMillisecondsSinceEpoch(e.timestamp).day,
+                              ),
+                              nominal: e.nominal);
                         }).toList();
                       }
                     });
                     provider.getExpenseList().then((value) {
                       if (provider.state == ResultState.HasData) {
                         expenseSpots = provider.expenseList!.map((e) {
-                          return CashflowData(date: e!.date, nominal: e.nominal);
+                          print("datetime = ${DateTime(
+                            DateTime.fromMillisecondsSinceEpoch(e!.timestamp).year,
+                            DateTime.fromMillisecondsSinceEpoch(e.timestamp).month,
+                            DateTime.fromMillisecondsSinceEpoch(e.timestamp).day,
+                          ).toString()}");
+                          return CashflowData(
+                              date: DateTime(
+                                DateTime.fromMillisecondsSinceEpoch(e.timestamp).year,
+                                DateTime.fromMillisecondsSinceEpoch(e.timestamp).month,
+                                DateTime.fromMillisecondsSinceEpoch(e.timestamp).day,
+                              ),
+                              nominal: e.nominal);
                         }).toList();
                       }
                     });
                     return SizedBox(
                       height: MediaQuery.of(context).size.height / 3.5,
                       child: SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        tooltipBehavior: TooltipBehavior(
-                          decimalPlaces: 3
+                        primaryXAxis: DateTimeAxis(
+                          intervalType: DateTimeIntervalType.days,
+                          interval: 1,
+                          axisLine: const AxisLine(
+                              width: 1
+                          ),
+                          majorGridLines: const MajorGridLines(
+                            width: 0
+                          ),
                         ),
-                        series: <SplineSeries<CashflowData, String>>[
-                          SplineSeries<CashflowData, String>(
+                        primaryYAxis: NumericAxis(
+                          numberFormat: NumberFormat.compactSimpleCurrency(locale: 'id'),
+                          axisLine: const AxisLine(
+                            width: 1
+                          ),
+                          majorGridLines: const MajorGridLines(
+                              width: 0
+                          ),
+                        ),
+                        series: <SplineSeries<CashflowData, DateTime>>[
+                          SplineSeries<CashflowData, DateTime>(
                               color: Colors.green,
                               dataSource: incomeSpots,
                               xValueMapper: (CashflowData cashflow, _) => cashflow.date,
                               yValueMapper: (CashflowData cashflow, _) => cashflow.nominal),
-                          SplineSeries<CashflowData, String>(
+                          SplineSeries<CashflowData, DateTime>(
                               color: Colors.red,
                               dataSource: expenseSpots,
                               xValueMapper: (CashflowData cashflow, _) => cashflow.date,
@@ -142,7 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       "Pengaturan",
                       "assets/img/img_settings.webp",
-                      () {},
+                      () {
+                        Navigator.pushNamed(context, SettingsScreen.routeName);
+                      },
                     ),
                   ],
                 ),

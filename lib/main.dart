@@ -3,11 +3,13 @@ import 'package:bkn_sertifikasi/provider/expenses_provider.dart';
 import 'package:bkn_sertifikasi/provider/home_provider.dart';
 import 'package:bkn_sertifikasi/provider/income_provider.dart';
 import 'package:bkn_sertifikasi/provider/login_provider.dart';
+import 'package:bkn_sertifikasi/provider/settings_provider.dart';
 import 'package:bkn_sertifikasi/screen/detail/cashflowdetail_screen.dart';
 import 'package:bkn_sertifikasi/screen/expenses/expenses_screen.dart';
 import 'package:bkn_sertifikasi/screen/home/home_screen.dart';
 import 'package:bkn_sertifikasi/screen/income/income_screen.dart';
 import 'package:bkn_sertifikasi/screen/login/login_screen.dart';
+import 'package:bkn_sertifikasi/screen/settings/settings_screen.dart';
 import 'package:bkn_sertifikasi/util/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +47,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => HomeProvider(dbHelper: dbHandler)),
         ChangeNotifierProvider(create: (_) => ExpensesProvider(dbHelper: dbHandler)),
         ChangeNotifierProvider(create: (_) => CashflowDetailProvider(dbHelper: dbHandler)),
+        ChangeNotifierProvider(create: (_) => SettingsProvider(dbHelper: dbHandler)),
       ],
       child: MaterialApp(
         title: 'MyCashApp',
@@ -58,6 +61,7 @@ class _MyAppState extends State<MyApp> {
           IncomeScreen.routeName: (context) => const IncomeScreen(),
           ExpensesScreen.routeName: (context) => const ExpensesScreen(),
           DetailCashflowScreen.routeName: (context) => const DetailCashflowScreen(),
+          SettingsScreen.routeName: (context) => const SettingsScreen(),
         },
       ),
     );

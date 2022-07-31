@@ -28,9 +28,15 @@ class DatabaseHandler {
   }
 
   Future<int?> updateUser(User user) async {
+    int id = 1;
     if (db != null) {
       int result = 0;
-      result = await db!.update('user', user.toMap(), where: 'id = ?', whereArgs: [0]);
+      result = await db!.update(
+        'user',
+        user.toMap(),
+        where: "id = ?",
+        whereArgs: [id]
+      );
       return result;
     } else {
       return null;
@@ -96,7 +102,6 @@ class DatabaseHandler {
 
   Future getSumIncome() async {
     if (db != null) {
-      print("db tidak null");
       var result = await db!.rawQuery(" SELECT SUM(nominal) as sum FROM cashflow where type = 'income'");
       return result[0]['sum'];
     } else {

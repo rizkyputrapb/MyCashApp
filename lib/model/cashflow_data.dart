@@ -1,5 +1,5 @@
 class CashflowData {
-  String date;
+  DateTime date;
   int nominal;
 
   CashflowData({required this.date, required this.nominal});
