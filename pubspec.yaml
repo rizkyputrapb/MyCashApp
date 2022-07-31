@@ -31,10 +31,12 @@ dependencies:
     sdk: flutter
   sqflite: ^2.0.3
   provider: ^6.0.3
+  path_provider: ^2.0.11
   path: ^1.8.2
   crypto: ^3.0.2
   another_flushbar: ^1.10.29
   syncfusion_flutter_charts: ^20.2.40
+  cached_network_image: ^3.2.1
   auto_size_text: ^3.0.0
   intl: ^0.17.0
 

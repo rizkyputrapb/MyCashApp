@@ -27,7 +27,6 @@ class LoginProvider with ChangeNotifier {
   Future<dynamic> fetchUser() async {
     try {
       final user = await dbHelper.retrieveUser();
-      print(user?.toMap().toString());
       if (user != null) {
         _user = user;
         notifyListeners();
@@ -50,7 +49,6 @@ class LoginProvider with ChangeNotifier {
       final username = usernameController.text;
       final password = md5.convert(utf8.encode(passwordController.text)).toString();
       if (_user != null) {
-        print(_user?.toMap().toString());
         if (_user!.username == username && _user!.password == password) {
           print("user logged in");
           _state = ResultState.HasData;

@@ -30,7 +30,6 @@ class IncomeProvider with ChangeNotifier {
   }
 
   set inputtedNominal(int number) {
-    print(number);
     _inputtedNominal = number;
     notifyListeners();
   }

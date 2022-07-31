@@ -25,8 +25,6 @@ class SettingsProvider with ChangeNotifier {
     try {
       final user = await dbHelper.retrieveUser();
       if (user != null) {
-        print(user.password);
-        print(md5.convert(utf8.encode(currentPassController.text)).toString());
         if (user.password == md5.convert(utf8.encode(currentPassController.text)).toString()) {
           final result =
               await dbHelper.updateUser(User(id: 1, username: "user", password: md5.convert(utf8.encode(newPassController.text)).toString()));

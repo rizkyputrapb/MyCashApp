@@ -82,14 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     provider.getExpenseList().then((value) {
                       if (provider.state == ResultState.HasData) {
                         expenseSpots = provider.expenseList!.map((e) {
-                          print("datetime = ${DateTime(
-                            DateTime.fromMillisecondsSinceEpoch(e!.timestamp).year,
-                            DateTime.fromMillisecondsSinceEpoch(e.timestamp).month,
-                            DateTime.fromMillisecondsSinceEpoch(e.timestamp).day,
-                          ).toString()}");
                           return CashflowData(
                               date: DateTime(
-                                DateTime.fromMillisecondsSinceEpoch(e.timestamp).year,
+                                DateTime.fromMillisecondsSinceEpoch(e!.timestamp).year,
                                 DateTime.fromMillisecondsSinceEpoch(e.timestamp).month,
                                 DateTime.fromMillisecondsSinceEpoch(e.timestamp).day,
                               ),
@@ -103,21 +98,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         primaryXAxis: DateTimeAxis(
                           intervalType: DateTimeIntervalType.days,
                           interval: 1,
-                          axisLine: const AxisLine(
-                              width: 1
-                          ),
-                          majorGridLines: const MajorGridLines(
-                            width: 0
-                          ),
+                          axisLine: const AxisLine(width: 1),
+                          majorGridLines: const MajorGridLines(width: 0),
                         ),
                         primaryYAxis: NumericAxis(
                           numberFormat: NumberFormat.compactSimpleCurrency(locale: 'id'),
-                          axisLine: const AxisLine(
-                            width: 1
-                          ),
-                          majorGridLines: const MajorGridLines(
-                              width: 0
-                          ),
+                          axisLine: const AxisLine(width: 1),
+                          majorGridLines: const MajorGridLines(width: 0),
                         ),
                         series: <SplineSeries<CashflowData, DateTime>>[
                           SplineSeries<CashflowData, DateTime>(

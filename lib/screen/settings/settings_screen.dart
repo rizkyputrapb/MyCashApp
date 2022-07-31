@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:bkn_sertifikasi/constants/resultstate_constant.dart';
 import 'package:bkn_sertifikasi/provider/settings_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -104,6 +105,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         });
                       },
                       child: const Text("Ganti Password"),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  CachedNetworkImage(
+                    height: 200,
+                    fit: BoxFit.fill,
+                    imageUrl:
+                        "https://media.discordapp.net/attachments/546654855956004866/1003182499075215380/D0FF2A54-DD89-4F55-89BB-E16F8C03C8BA_-_Rizky_Putra_Pradhana_Budiman_1.jpeg?width=492&height=655",
+                    placeholder: (context, _) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Rizky Putra Pradhana Budiman",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "NIM: 1841720188",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Tanggal: 31 Juli 2022",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
                     ),
                   )
                 ],
